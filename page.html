@@ -31,152 +31,165 @@
         #category-nav { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-white text-slate-900 antialiased">
 
-    <nav class="bg-white border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <img src="https://www.nsmint.com/images/logo.png" alt="N S Mint Logo" class="h-12 md:h-16">
-            <div class="hidden sm:block text-right">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">3-Star Export House</p>
-                <p class="text-green-700 font-extrabold">International Division</p>
+    <nav class="bg-white border-b border-slate-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <img src="https://www.nsmint.com/images/logo.png" alt="N S Mint Logo" class="h-14">
+            <div class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-500 uppercase tracking-widest">
+                <span>3-Star Export House</span>
+                <a href="https://www.nsmint.com/contact.html" class="bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition shadow-lg">Inquiry Now</a>
             </div>
         </div>
-        
-        <div class="bg-slate-900 text-white border-t border-slate-800">
-            <div id="category-nav" class="max-w-7xl mx-auto px-6 flex items-center space-x-2 overflow-x-visible h-14">
-                <span class="text-[10px] font-black text-slate-500 uppercase tracking-tighter mr-4 whitespace-nowrap">Market Catalog:</span>
+
+        <div class="bg-slate-900 text-white border-t border-slate-800 w-full overflow-visible">
+            <div id="category-nav" class="max-w-7xl mx-auto px-6 flex justify-between items-center overflow-x-auto whitespace-nowrap min-h-[50px]">
+                <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest mr-4">Product Category:</span>
                 </div>
         </div>
     </nav>
 
-    <header class="hero-gradient text-white py-24 px-6 shadow-inner">
-        <div class="max-w-5xl mx-auto">
-            <div class="inline-block bg-green-500/20 border border-green-500/30 px-4 py-1 rounded-full mb-6">
-                <p class="text-green-300 font-bold uppercase tracking-widest text-[10px]">Verified Technical Documentation</p>
-            </div>
-            <h1 id="main-heading" class="text-5xl md:text-7xl font-extrabold mb-8 tracking-tighter leading-[1.1]">
-                </h1>
-            <p class="text-xl md:text-2xl font-light text-green-50/80 leading-relaxed max-w-3xl">
-                Global supply of premium <span id="intro-prod" class="font-bold text-white"></span> tailored for the regulatory standards of <span class="country-display text-green-400 font-bold"></span>.
+    <header class="hero-gradient text-white py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <p class="text-green-300 font-black uppercase tracking-[0.3em] mb-4 text-xs">Certified Manufacturer & Exporter</p>
+            <h1 id="main-heading" class="text-4xl md:text-7xl font-extrabold mb-8 leading-tight tracking-tighter">
+                Loading Product Details...
+            </h1>
+            <p class="text-xl md:text-2xl text-green-50 max-w-3xl opacity-90 leading-relaxed font-light">
+                Premium supply from our Sambhal facility. WHO-GMP and FSSC 22000 compliant quality standards for manufacturers in <span class="country-display font-bold text-green-300"></span>.
             </p>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto py-16 px-6">
-        <div class="grid lg:grid-cols-3 gap-8">
+    <main class="max-w-7xl mx-auto py-20 px-6 grid lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-2 space-y-16">
             
-            <div class="lg:col-span-2 space-y-8">
-                <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200">
-                    <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-10 border-b border-slate-100 pb-4">Standard Technical Data (COA)</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <div>
-                            <p class="text-[10px] font-bold text-green-600 uppercase mb-2">Grade / Application</p>
-                            <p id="spec-grade" class="text-2xl font-bold text-slate-800 tracking-tight">Checking...</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-green-600 uppercase mb-2">Purity Standard</p>
-                            <p id="spec-purity" class="text-2xl font-bold text-slate-800 tracking-tight">Checking...</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-green-600 uppercase mb-2">Extraction / Method</p>
-                            <p id="spec-method" class="text-2xl font-bold text-slate-800 tracking-tight">Checking...</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-green-600 uppercase mb-2">Facility Origin</p>
-                            <p class="text-2xl font-bold text-slate-800 tracking-tight">Sambhal, India</p>
-                        </div>
+            <section class="bg-slate-50 border border-slate-200 rounded-[2.5rem] p-10 shadow-2xl">
+                <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-10 text-center">Technical Compliance Data</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 border border-slate-200 overflow-hidden rounded-2xl">
+                    <div class="bg-white p-8">
+                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Standard Grade</p>
+                        <p id="spec-grade" class="text-2xl font-extrabold text-slate-900">...</p>
+                    </div>
+                    <div class="bg-white p-8">
+                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Chemical Purity</p>
+                        <p id="spec-purity" class="text-2xl font-extrabold text-slate-900">...</p>
+                    </div>
+                    <div class="bg-white p-8">
+                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Extraction Method</p>
+                        <p id="spec-method" class="text-2xl font-extrabold text-slate-900">...</p>
+                    </div>
+                    <div class="bg-white p-8">
+                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Origin</p>
+                        <p class="text-2xl font-extrabold text-slate-900">Sambhal, India</p>
                     </div>
                 </div>
+            </section>
 
-                <div class="prose prose-slate max-w-none">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-6 uppercase tracking-tight">Exporter to <span class="country-display text-green-700"></span></h2>
-                    <p id="p1" class="text-lg text-slate-600 leading-relaxed mb-6"></p>
-                    <div class="bg-slate-900 text-white rounded-2xl p-8 mb-6">
-                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 text-center">Industry Certifications</p>
-                        <div class="flex flex-wrap justify-center gap-6 opacity-80 italic text-sm">
-                            <span>WHO-GMP</span> • <span>FSSC 22000</span> • <span>REACH Compliant</span> • <span>3-Star Export House</span>
-                        </div>
-                    </div>
-                    <p id="p2" class="text-lg text-slate-600 leading-relaxed"></p>
+            <article class="prose prose-slate max-w-none prose-lg">
+                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight"><span id="article-prod"></span> Supply to <span class="country-display"></span></h2>
+                <p id="p1" class="text-xl text-slate-600 leading-relaxed"></p>
+                <div class="bg-green-50 rounded-3xl p-10 border border-green-100 my-12">
+                    <h3 class="text-2xl font-extrabold text-green-900 mb-6 text-center italic">"Quality that meets global pharmacopeia standards."</h3>
+                    <ul class="grid md:grid-cols-2 gap-6 text-slate-700 font-semibold list-none p-0">
+                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>Pharmaceutical & API Grade</li>
+                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>FMCG & Oral Care</li>
+                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>Flavors & Fragrances</li>
+                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>Industrial Distillation</li>
+                    </ul>
                 </div>
-            </div>
-
-            <aside class="lg:col-span-1">
-                <div class="sticky top-24 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
-                    <h3 class="text-xl font-bold mb-4">Request COA / Quote</h3>
-                    <p class="text-slate-500 text-sm mb-6">Inquire about the latest batch availability for <span class="country-display font-bold"></span>.</p>
-                    <a href="mailto:sales@nsmint.com" id="email-link" class="block w-full text-center bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl transition shadow-md uppercase text-xs tracking-widest">Send RFP</a>
-                    <div class="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Annual Capacity</span>
-                        <span class="text-sm font-bold text-slate-700">1,200 MT</span>
-                    </div>
-                </div>
-            </aside>
+                <p id="p2" class="text-xl text-slate-600 leading-relaxed"></p>
+            </article>
         </div>
+
+        <aside class="lg:col-span-1">
+            <div class="sticky top-32 bg-slate-900 text-white rounded-[2rem] p-10 shadow-2xl">
+                <h3 class="text-2xl font-black mb-4">Export Desk</h3>
+                <p class="text-slate-400 text-sm mb-8 leading-relaxed italic text-balance">Direct factory pricing for <span class="country-display text-green-400"></span> importers.</p>
+                <a href="mailto:sales@nsmint.com" id="email-link" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-5 rounded-2xl transition shadow-lg uppercase text-xs tracking-widest">Send Inquiry</a>
+            </div>
+        </aside>
     </main>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const ctry = urlParams.get('country') || 'Libya';
-        const prod = urlParams.get('product') || 'L-Menthol Crystals IP';
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv' + '&cb=' + new Date().getTime();
+        const countryName = urlParams.get('country') || 'Libya';
+        const productName = urlParams.get('product') || 'L-Menthol Crystals IP';
+        
+        // RE-CHECK: Ensure this URL ends in output=csv
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv';
 
         async function init() {
-            document.getElementById('main-heading').innerText = prod + ' Supply to ' + ctry;
-            document.getElementById('intro-prod').innerText = prod;
-            document.querySelectorAll('.country-display').forEach(el => el.innerText = ctry);
-            document.getElementById('email-link').href = `mailto:sales@nsmint.com?subject=RFP: ${prod} for ${ctry}`;
+            document.getElementById('meta-title').innerText = `${productName} in ${countryName} | N S Mint Products`;
+            document.getElementById('main-heading').innerText = `${productName} Supply to ${countryName}`;
+            document.getElementById('article-prod').innerText = productName;
+            document.querySelectorAll('.country-display').forEach(el => el.innerText = countryName);
 
             try {
                 const res = await fetch(sheetUrl);
-                const csvText = await res.text();
-                const lines = csvText.split(/\r?\n/).slice(1);
+                const csvData = await res.text();
+                const rows = csvData.split(/\r?\n/).map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
                 
-                const menuSilos = {};
+                const header = rows[0];
+                // Automatically find column indices
+                const idxCat = header.findIndex(h => h.toLowerCase().includes('category'));
+                const idxProd = header.findIndex(h => h.toLowerCase().includes('product'));
+                const idxCtry = header.findIndex(h => h.toLowerCase().includes('country'));
+                const idxPurity = header.findIndex(h => h.toLowerCase().includes('purity'));
+                const idxGrade = header.findIndex(h => h.toLowerCase().includes('grade'));
+                const idxMethod = header.findIndex(h => h.toLowerCase().includes('method'));
 
-                for (let line of lines) {
-                    const parts = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if (parts.length < 5) continue;
+                const navSilos = {};
 
-                    const row_category = parts[0].replace(/"/g, '').trim();
-                    const row_product  = parts[1].replace(/"/g, '').trim();
-                    const row_country  = parts[2].replace(/"/g, '').trim();
+                for (let i = 1; i < rows.length; i++) {
+                    const cols = rows[i];
+                    if (cols.length < 3) continue;
 
-                    if (row_country.toLowerCase() === ctry.toLowerCase()) {
-                        if (!menuSilos[row_category]) menuSilos[row_category] = [];
-                        if (!menuSilos[row_category].includes(row_product)) menuSilos[row_category].push(row_product);
+                    const rowCat = cols[idxCat]?.replace(/"/g, '').trim();
+                    const rowProd = cols[idxProd]?.replace(/"/g, '').trim();
+                    const rowCtry = cols[idxCtry]?.replace(/"/g, '').trim();
 
-                        if (row_product.toLowerCase() === prod.toLowerCase()) {
-                            document.getElementById('spec-purity').innerText = parts[3].replace(/"/g, '').trim();
-                            document.getElementById('spec-grade').innerText = parts[4].replace(/"/g, '').trim();
-                            document.getElementById('spec-method').innerText = parts[5].replace(/"/g, '').trim();
+                    // 1. Build Nav Silo (Products available in this country)
+                    if (rowCtry === countryName) {
+                        if (!navSilos[rowCat]) navSilos[rowCat] = [];
+                        if (!navSilos[rowCat].includes(rowProd)) navSilos[rowCat].push(rowProd);
+
+                        // 2. Exact Match for Page Content
+                        if (rowProd.toLowerCase() === productName.toLowerCase()) {
+                            document.getElementById('spec-purity').innerText = cols[idxPurity]?.replace(/"/g, '') || 'High Purity';
+                            document.getElementById('spec-grade').innerText = cols[idxGrade]?.replace(/"/g, '') || 'Standard';
+                            document.getElementById('spec-method').innerText = cols[idxMethod]?.replace(/"/g, '') || 'Distilled';
                         }
                     }
                 }
 
+                // 3. Render Mega Menus
                 const nav = document.getElementById('category-nav');
-                Object.keys(menuSilos).forEach(category => {
-                    const wrap = document.createElement('div');
-                    wrap.className = "dropdown relative h-full flex items-center";
-                    wrap.innerHTML = `
-                        <button class="text-[10px] font-extrabold uppercase text-slate-300 hover:text-green-400 px-4 h-full tracking-tight transition whitespace-nowrap">
-                            ${category} <span class="opacity-30 ml-1">▼</span>
+                nav.innerHTML = ''; 
+                Object.keys(navSilos).forEach(cat => {
+                    const menu = document.createElement('div');
+                    menu.className = "dropdown relative group";
+                    menu.innerHTML = `
+                        <button class="text-[10px] font-extrabold uppercase tracking-tight text-slate-300 group-hover:text-green-400 py-4 px-3 flex items-center">
+                            ${cat} <span class="ml-1 opacity-50">▼</span>
                         </button>
-                        <div class="dropdown-menu p-3">
-                            ${menuSilos[category].map(pName => `
-                                <a href="page.html?product=${encodeURIComponent(pName)}&country=${encodeURIComponent(ctry)}" 
-                                   class="block text-[11px] font-semibold py-2.5 px-4 hover:bg-green-50 hover:text-green-700 rounded-lg transition border-b border-slate-50 last:border-0">
-                                   ${pName}
+                        <div class="dropdown-menu absolute hidden left-0 bg-white text-slate-900 shadow-2xl rounded-xl p-2 min-w-[280px] border border-slate-100 top-full z-[100]">
+                            ${navSilos[cat].map(p => `
+                                <a href="page.html?product=${encodeURIComponent(p)}&country=${encodeURIComponent(countryName)}" 
+                                   class="block text-[11px] font-bold py-2 px-4 hover:bg-green-50 hover:text-green-800 rounded-lg transition">
+                                   ${p}
                                 </a>
                             `).join('')}
                         </div>`;
-                    nav.appendChild(wrap);
+                    nav.appendChild(menu);
                 });
 
-                document.getElementById('p1').innerText = `As a recognized 3-Star Export House, N S Mint Products provides a stable supply chain for high-purity ${prod} across the ${ctry} region. Our facility ensures that every batch is manufactured under strict WHO-GMP oversight to meet the specific requirements of the pharmaceutical and flavor industries in ${ctry}.`;
-                document.getElementById('p2').innerText = `Importers in ${ctry} can rely on our integrated logistics and exhaustive compliance support. From REACH certification to detailed COA (Certificates of Analysis), we ensure that ${prod} shipments reach ${ctry} distributors with zero regulatory delay.`;
+                document.getElementById('p1').innerText = `As a recognized 3-Star Export House, N S Mint Products provides direct industrial-scale supply of ${productName} to manufacturers throughout ${countryName}. Our Sambhal-based production facility ensures that every shipment meets the specific purity requirements and regulatory compliance standards of the ${countryName} market.`;
+                document.getElementById('p2').innerText = `We manage the entire export lifecycle for ${productName} to ${countryName}, including full REACH documentation and WHO-GMP quality certification. Our commitment to farm-to-factory transparency allows ${countryName} procurement managers to secure high-quality ${productName} with guaranteed chemical stability and reliability.`;
 
-            } catch (e) { console.error(e); }
+            } catch (err) {
+                console.error("Critical Error:", err);
+            }
         }
         init();
     </script>
