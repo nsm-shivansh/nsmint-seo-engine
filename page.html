@@ -6,109 +6,82 @@
     <title id="meta-title">N S Mint Products | Premium Global Supply</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .hero-bg { background: linear-gradient(rgba(6, 78, 59, 0.9), rgba(6, 78, 59, 0.9)), url('https://www.transparenttextures.com/patterns/leaf.png'), #064e3b; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .dropdown:hover .dropdown-menu { display: block; }
+        .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); }
     </style>
 </head>
-<body class="bg-white text-slate-800 antialiased">
+<body class="bg-white text-slate-900 antialiased">
 
-    <nav class="bg-white py-6 px-8 border-b border-slate-100 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <img src="https://www.nsmint.com/images/logo.png" alt="N S Mint Logo" class="h-12 md:h-16">
-            <div class="hidden lg:flex space-x-8 items-center">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">3-Star Export House</span>
-                <a href="https://www.nsmint.com/contact.html" class="bg-green-700 text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-green-800 transition shadow-lg">Inquiry Now</a>
+    <nav class="bg-white border-b border-slate-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <img src="https://www.nsmint.com/images/logo.png" alt="N S Mint Logo" class="h-14">
+            <div class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-500 uppercase tracking-widest">
+                <span>3-Star Export House</span>
+                <a href="https://www.nsmint.com/contact.html" class="bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition shadow-lg">Inquiry Now</a>
             </div>
+        </div>
+
+        <div class="bg-slate-900 text-white border-t border-slate-800 hidden md:block">
+            <div id="category-nav" class="max-w-7xl mx-auto px-6 flex space-x-8 py-3 overflow-x-auto whitespace-nowrap">
+                </div>
         </div>
     </nav>
 
-    <header class="hero-bg text-white py-24 px-8">
-        <div class="max-w-5xl mx-auto">
-            <nav class="flex mb-8 text-sm text-green-200 font-medium">
-                <span class="opacity-60">Products</span> <span class="mx-2">/</span> <span class="country-display">Global</span>
-            </nav>
-            <h1 id="main-heading" class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight tracking-tight">...</h1>
-            <p class="text-xl md:text-2xl text-green-50 max-w-3xl leading-relaxed font-light">
-                As India’s leading manufacturer and 3-Star Export House, N S Mint Products delivers high-purity mint derivatives sourced directly from the fertile Sambhal region.
+    <header class="hero-gradient text-white py-24 px-6 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <p class="text-green-300 font-black uppercase tracking-[0.3em] mb-4 text-xs">Global Supply Division</p>
+            <h1 id="main-heading" class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight tracking-tighter">...</h1>
+            <p class="text-xl md:text-2xl text-green-50 max-w-3xl opacity-90 leading-relaxed font-light">
+                Direct factory-grade supply from Sambhal, India. WHO-GMP, REACH, and FSSC 22000 certified manufacturing tailored for <span class="country-display"></span>.
             </p>
         </div>
     </header>
 
-    <div class="bg-slate-50 py-10 border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-8 flex flex-wrap justify-between items-center gap-8 grayscale opacity-60">
-            <span class="font-black text-slate-400 italic text-xl">FSSC 22000</span>
-            <span class="font-black text-slate-400 italic text-xl">WHO-GMP</span>
-            <span class="font-black text-slate-400 italic text-xl">ISO 9001</span>
-            <span class="font-black text-slate-400 italic text-xl">REACH</span>
-            <span class="font-black text-slate-400 italic text-xl">KOSHER/HALAL</span>
-        </div>
-    </div>
-
-    <main class="max-w-7xl mx-auto py-20 px-8 grid lg:grid-cols-3 gap-16">
+    <main class="max-w-7xl mx-auto py-20 px-6 grid lg:grid-cols-3 gap-16">
         
         <div class="lg:col-span-2 space-y-16">
-            
-            <section>
-                <h2 class="text-xs font-black text-green-700 uppercase tracking-[0.3em] mb-8">Technical Specifications</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 border border-slate-200 rounded-2xl overflow-hidden shadow-2xl">
-                    <div class="bg-white p-8"><p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Standard Grade</p><p id="spec-grade" class="text-2xl font-extrabold text-slate-900">-</p></div>
-                    <div class="bg-white p-8"><p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Chemical Purity</p><p id="spec-purity" class="text-2xl font-extrabold text-slate-900">-</p></div>
-                    <div class="bg-white p-8"><p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Extraction Method</p><p id="spec-method" class="text-2xl font-extrabold text-slate-900">-</p></div>
-                    <div class="bg-white p-8"><p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Origin</p><p class="text-2xl font-extrabold text-slate-900">Sambhal, India</p></div>
+            <section class="bg-slate-50 border border-slate-200 rounded-[2.5rem] p-10 shadow-2xl">
+                <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-10 text-center">Batch Compliance Specifications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 border border-slate-200 overflow-hidden rounded-2xl">
+                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Standard Grade</p><p id="spec-grade" class="text-2xl font-extrabold">-</p></div>
+                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Chemical Purity</p><p id="spec-purity" class="text-2xl font-extrabold">-</p></div>
+                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Extraction Method</p><p id="spec-method" class="text-2xl font-extrabold">-</p></div>
+                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Origin Facility</p><p class="text-2xl font-extrabold">Sambhal, India</p></div>
                 </div>
             </section>
 
-            <article class="space-y-10">
-                <div class="border-l-4 border-green-600 pl-8">
-                    <h2 class="text-4xl font-extrabold text-slate-900 mb-6">Unrivaled Supply of <span id="product-display"></span></h2>
-                    <p id="p1" class="text-xl text-slate-600 leading-relaxed"></p>
-                </div>
-
-                <div class="bg-green-50 rounded-3xl p-10 border border-green-100">
-                    <h3 class="text-2xl font-extrabold text-green-900 mb-6">Why Manufacturers Choose N S Mint</h3>
-                    <ul class="space-y-6">
-                        <li class="flex items-start">
-                            <span class="bg-green-600 text-white p-1 rounded-full mr-4 text-xs">✓</span>
-                            <div><p class="font-bold text-lg">Direct Farm Sourcing</p><p class="text-slate-600">We work with 5,000+ farmers to ensure raw material authenticity.</p></div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-green-600 text-white p-1 rounded-full mr-4 text-xs">✓</span>
-                            <div><p class="font-bold text-lg">Massive Production Capacity</p><p class="text-slate-600">Our 125,000 sq. ft. facility produces 1,200 MT of L-Menthol annually.</p></div>
-                        </li>
+            <article class="prose prose-slate max-w-none prose-lg">
+                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">Supply & Export to <span class="country-display"></span></h2>
+                <p id="p1" class="text-xl text-slate-600 leading-relaxed"></p>
+                
+                <div class="bg-green-50 rounded-3xl p-10 border border-green-100 my-12">
+                    <h3 class="text-2xl font-extrabold text-green-900 mb-6">Key Market Applications</h3>
+                    <ul class="grid md:grid-cols-2 gap-6 text-slate-700 font-semibold list-none p-0">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>Pharmaceutical Formulations</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>Oral Care & Personal Hygiene</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>Food, Flavors & Confectionery</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>Cosmetics & Fine Fragrances</li>
                     </ul>
                 </div>
 
-                <h3 class="text-3xl font-extrabold text-slate-900 mt-12">Logistics for <span class="country-display"></span></h3>
+                <h3 class="text-3xl font-extrabold text-slate-900">Customized Logistics & Compliance</h3>
                 <p id="p2" class="text-xl text-slate-600 leading-relaxed"></p>
             </article>
         </div>
 
         <aside class="lg:col-span-1">
-            <div class="sticky top-32 bg-white border border-slate-200 p-10 rounded-[2rem] shadow-2xl space-y-8">
-                <div>
-                    <h3 class="text-2xl font-extrabold mb-2 text-slate-900 uppercase tracking-tighter">Inquire for <span class="country-display"></span></h3>
-                    <p class="text-slate-500 font-medium">Get direct factory pricing and COA documents.</p>
-                </div>
-                
-                <div class="space-y-4">
-                    <a href="mailto:sales@nsmint.com" class="block w-full text-center bg-slate-900 text-white font-bold py-5 rounded-2xl hover:bg-slate-800 transition shadow-xl">Send Official Inquiry</a>
-                    <a href="https://www.nsmint.com/contact.html" class="block w-full text-center border-2 border-slate-900 text-slate-900 font-bold py-5 rounded-2xl hover:bg-slate-50 transition">Contact via Website</a>
-                </div>
-
-                <div class="pt-8 border-t border-slate-100">
-                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-4">Export Office</p>
-                    <p class="font-bold text-slate-600 text-sm">Near 2 KM Stone, Takht Gosain Road, Sambhal, UP, India</p>
+            <div class="sticky top-32 space-y-6">
+                <div class="bg-slate-900 text-white rounded-[2rem] p-10 shadow-2xl">
+                    <h3 class="text-2xl font-black mb-4">Inquire Now</h3>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">Request factory pricing, COA, and shipping timelines for <strong><span class="country-display"></span></strong> delivery.</p>
+                    <a href="mailto:sales@nsmint.com" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-5 rounded-2xl transition shadow-lg">Send Official RFP</a>
+                    <p class="text-center text-[10px] text-slate-500 font-bold mt-6 uppercase tracking-widest tracking-widest">Global Capacity: 1,200 MT / Year</p>
                 </div>
             </div>
         </aside>
     </main>
-
-    <footer class="bg-slate-900 text-white py-20 px-8 mt-20">
-        <div class="max-w-7xl mx-auto text-center opacity-50 text-sm">
-            <p>© 2026 N S Mint Products Pvt Ltd. All Rights Reserved. 3-Star Export House Status.</p>
-        </div>
-    </footer>
 
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -117,9 +90,8 @@
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pubhtml';
 
         async function init() {
-            document.getElementById('meta-title').innerText = `${product} Importers in ${country} | N S Mint`;
-            document.getElementById('main-heading').innerText = `${product} Supply to ${country}`;
-            document.getElementById('product-display').innerText = product;
+            document.getElementById('meta-title').innerText = `${product} Supplier in ${country} | N S Mint`;
+            document.getElementById('main-heading').innerText = `${product} Distribution: ${country}`;
             document.querySelectorAll('.country-display').forEach(el => el.innerText = country);
 
             try {
@@ -127,22 +99,47 @@
                 const text = await res.text();
                 const rows = text.split(/\r?\n/).slice(1);
                 
-                // FUZZY MATCHING LOGIC
+                const categorizedData = {};
+
                 rows.forEach(row => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    const sheetProductName = cols[0].replace(/"/g, '').trim();
-                    
-                    // This matches "L-Menthol Crystals" to "L-Menthol Crystals (IP/BP/USP)"
-                    if (sheetProductName.toLowerCase().includes(product.toLowerCase()) || 
-                        product.toLowerCase().includes(sheetProductName.toLowerCase())) {
-                        document.getElementById('spec-purity').innerText = cols[2]?.replace(/"/g, '') || 'High Purity';
-                        document.getElementById('spec-grade').innerText = cols[3]?.replace(/"/g, '') || 'Pharma/Food';
-                        document.getElementById('spec-method').innerText = cols[4]?.replace(/"/g, '') || 'Crystallization';
+                    const cat = cols[0]?.replace(/"/g, '').trim();
+                    const prod = cols[1]?.replace(/"/g, '').trim();
+
+                    if (!categorizedData[cat]) categorizedData[cat] = [];
+                    categorizedData[cat].push(prod);
+
+                    // Set Specs if matched
+                    if (prod.toLowerCase() === product.toLowerCase()) {
+                        document.getElementById('spec-purity').innerText = cols[3]?.replace(/"/g, '');
+                        document.getElementById('spec-grade').innerText = cols[4]?.replace(/"/g, '');
+                        document.getElementById('spec-method').innerText = cols[5]?.replace(/"/g, '');
                     }
                 });
 
-                document.getElementById('p1').innerText = `N S Mint Products is a globally recognized manufacturer specializing in the production of high-grade ${product}. For the ${country} market, we maintain rigorous quality controls that align with international standards. Our farm-to-factory model ensures that ${product} delivered to ${country} retains its natural essence and chemical integrity, fulfilling the needs of pharmaceutical and aroma industries alike.`;
-                document.getElementById('p2').innerText = `Logistics to ${country} are managed through our dedicated export desk, ensuring all customs documentation, COA, and REACH compliance data are provided. Whether you require air freight for urgent production cycles in ${country} or bulk sea freight for large-scale inventory, N S Mint Products guarantees timely delivery with a 0% commitment failure rate.`;
+                // Generate SILO Mega-Menu
+                const nav = document.getElementById('category-nav');
+                Object.keys(categorizedData).forEach(cat => {
+                    const dropdown = document.createElement('div');
+                    dropdown.className = "dropdown relative group inline-block";
+                    dropdown.innerHTML = `
+                        <button class="text-[11px] font-black uppercase tracking-widest text-slate-400 group-hover:text-green-400 py-3">${cat} ▾</button>
+                        <div class="dropdown-menu absolute hidden bg-white text-slate-900 shadow-2xl rounded-xl p-4 min-w-[250px] border border-slate-100">
+                            ${categorizedData[cat].slice(0, 10).map(p => `
+                                <a href="page.html?product=${encodeURIComponent(p)}&country=${encodeURIComponent(country)}" 
+                                   class="block text-xs font-bold py-2 px-3 hover:bg-green-50 rounded-lg transition">
+                                   ${p}
+                                </a>
+                            `).join('')}
+                        </div>
+                    `;
+                    nav.appendChild(dropdown);
+                });
+
+                // Content Logic
+                document.getElementById('p1').innerText = `As a recognized 3-Star Export House, N S Mint Products provides direct factory supply of ${product} to industries across ${country}. Our facility in Sambhal integrates traditional farmer-sourcing with high-end fractional distillation, ensuring that every batch meets the rigorous pharmaceutical and food safety standards required in ${country}.`;
+                document.getElementById('p2').innerText = `Shipping and logistics for ${product} to ${country} are streamlined through our dedicated export division. We manage all regulatory compliance, including REACH registration and WHO-GMP documentation, to ensure zero delay at customs. Our annual capacity of 1,200 MT allows us to handle both bulk industrial orders and specialized laboratory requirements for ${country} distributors.`;
+
             } catch (e) { console.error(e); }
         }
         init();
