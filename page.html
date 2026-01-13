@@ -98,7 +98,7 @@
         const productName = urlParams.get('product') || 'L-Menthol Crystals IP';
         
         // RE-CHECK: Ensure this URL ends in output=csv
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pubhtml';
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv';
 
         async function init() {
             document.getElementById('meta-title').innerText = `${productName} in ${countryName} | N S Mint Products`;
