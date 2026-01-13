@@ -3,58 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N S Mint Products | Global Resource Center</title>
+    <title>N S Mint Products | Global Export Directory</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans">
-    <nav class="bg-white shadow-sm p-4 text-center">
-        <h1 class="text-xl font-bold text-green-700">N S Mint Products - Global Resource Center</h1>
+<body class="bg-slate-50 font-sans">
+    <nav class="bg-white shadow-sm p-6 border-b-4 border-green-600">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-black text-green-800 tracking-tighter uppercase">N S Mint <span class="text-slate-400">Global</span></h1>
+            <a href="https://www.nsmint.com/contact.html" class="bg-green-700 text-white px-6 py-2 rounded-full font-bold hover:bg-green-800 transition">Inquire Now</a>
+        </div>
     </nav>
 
-    <div class="max-w-6xl mx-auto py-12 px-4">
-        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Direct Export Destinations</h2>
-        <div id="country-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <p class="col-span-full text-center text-gray-500">Connecting to global database...</p>
+    <div class="max-w-7xl mx-auto py-16 px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold text-slate-900 mb-4">International Resource Center</h2>
+            <p class="text-slate-500 text-lg">Direct factory supply to 195 countries. Select a destination to view technical specifications and shipping schedules.</p>
+        </div>
+
+        <div class="mb-8 max-w-md mx-auto">
+            <input type="text" id="searchInput" onkeyup="filterLinks()" placeholder="Search by Country or Product..." class="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-green-500 outline-none shadow-sm">
+        </div>
+
+        <div id="directory-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <p class="col-span-full text-center text-slate-400 animate-pulse">Synchronizing with global database...</p>
         </div>
     </div>
 
     <script>
-        // THE FIX: The quotes '' are mandatory here.
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv';
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pubhtml';
 
-        async function loadPages() {
+        async function loadDirectory() {
             try {
                 const response = await fetch(sheetUrl);
                 const data = await response.text();
-                
-                // This splits the CSV data correctly
-                const rows = data.split(/\r?\n/).slice(1); 
-                const container = document.getElementById('country-list');
-                container.innerHTML = ''; // Clear loading message
+                const rows = data.split(/\r?\n/).slice(1);
+                const container = document.getElementById('directory-grid');
+                container.innerHTML = '';
 
                 rows.forEach(row => {
-                    // Use a more robust split for CSV (handles quotes if any)
-                    const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    
-                    if (columns.length >= 2) {
-                        const product = columns[0].replace(/"/g, '').trim();
-                        const country = columns[1].replace(/"/g, '').trim();
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    if (cols.length >= 2) {
+                        const product = cols[0].replace(/"/g, '').trim();
+                        const country = cols[1].replace(/"/g, '').trim();
                         
-                        if (country && product) {
-                            const link = document.createElement('a');
-                            link.href = `page.html?country=${encodeURIComponent(country)}&product=${encodeURIComponent(product)}`;
-                            link.className = "p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-green-500 transition-all text-blue-600 font-medium";
-                            link.innerText = `${product} - ${country}`;
-                            container.appendChild(link);
-                        }
+                        const link = document.createElement('a');
+                        link.href = `page.html?country=${encodeURIComponent(country)}&product=${encodeURIComponent(product)}`;
+                        link.className = "directory-item p-4 bg-white border border-slate-200 rounded-xl hover:border-green-500 hover:shadow-md transition-all text-sm font-semibold text-slate-700 flex justify-between items-center group";
+                        link.innerHTML = `<span>${product} <span class="text-slate-400 block text-[10px] uppercase tracking-widest">${country}</span></span> <span class="text-green-500 opacity-0 group-hover:opacity-100 transition">→</span>`;
+                        container.appendChild(link);
                     }
                 });
-            } catch (error) {
-                document.getElementById('country-list').innerHTML = `<p class="col-span-full text-center text-red-500">Error loading data. Please check your internet connection.</p>`;
-                console.error('Sheet loading error:', error);
+            } catch (e) {
+                document.getElementById('directory-grid').innerHTML = "Error loading directory. Please check Google Sheet publishing settings.";
             }
         }
-        loadPages();
+
+        function filterLinks() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let items = document.getElementsByClassName('directory-item');
+            for (let i = 0; i < items.length; i++) {
+                items[i].style.display = items[i].innerText.toLowerCase().includes(input) ? "" : "none";
+            }
+        }
+        loadDirectory();
     </script>
 </body>
 </html>
