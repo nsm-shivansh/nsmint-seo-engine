@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N S Mint Products | Global Resource Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="bg-white shadow-sm p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-green-700">N S Mint Products - Global</h1>
+            <a href="https://www.nsmint.com/contact.html" class="bg-green-600 text-white px-4 py-2 rounded">Contact Us</a>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto py-12 px-4">
+        <h2 class="text-3xl font-bold mb-8 text-center">Exporting to 195+ Countries</h2>
+        <div id="country-list" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            </div>
+    </div>
+
+    <script>
+        // PASTE YOUR GOOGLE SHEETS CSV URL BELOW
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv';
+
+        async function loadPages() {
+            const response = await fetch(sheetUrl);
+            const data = await response.text();
+            const rows = data.split('\n').slice(1);
+            const container = document.getElementById('country-list');
+
+            rows.forEach(row => {
+                const columns = row.split(',');
+                if (columns.length > 1) {
+                    const country = columns[1].trim();
+                    const product = columns[0].trim();
+                    const link = document.createElement('a');
+                    link.href = `page.html?country=${encodeURIComponent(country)}&product=${encodeURIComponent(product)}`;
+                    link.className = "p-3 bg-white border rounded shadow-sm hover:bg-green-50 text-blue-600";
+                    link.innerText = `${product} in ${country}`;
+                    container.appendChild(link);
+                }
+            });
+        }
+        loadPages();
+    </script>
+</body>
+</html>
