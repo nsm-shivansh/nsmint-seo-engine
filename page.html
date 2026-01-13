@@ -10,6 +10,8 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .dropdown:hover .dropdown-menu { display: block; }
         .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); }
+        /* Smooth transition for dropdowns */
+        .dropdown-menu { transition: all 0.3s ease; }
     </style>
 </head>
 <body class="bg-white text-slate-900 antialiased">
@@ -23,8 +25,8 @@
             </div>
         </div>
 
-        <div class="bg-slate-900 text-white border-t border-slate-800 hidden md:block">
-            <div id="category-nav" class="max-w-7xl mx-auto px-6 flex space-x-8 py-3 overflow-x-auto whitespace-nowrap">
+        <div class="bg-slate-900 text-white border-t border-slate-800 w-full overflow-visible">
+            <div id="category-nav" class="max-w-7xl mx-auto px-6 flex justify-between py-1 overflow-x-auto whitespace-nowrap">
                 </div>
         </div>
     </nav>
@@ -43,11 +45,11 @@
         
         <div class="lg:col-span-2 space-y-16">
             <section class="bg-slate-50 border border-slate-200 rounded-[2.5rem] p-10 shadow-2xl">
-                <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-10 text-center">Batch Compliance Specifications</h2>
+                <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-10 text-center uppercase">Batch Compliance Specifications</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 border border-slate-200 overflow-hidden rounded-2xl">
-                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Standard Grade</p><p id="spec-grade" class="text-2xl font-extrabold">-</p></div>
-                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Chemical Purity</p><p id="spec-purity" class="text-2xl font-extrabold">-</p></div>
-                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Extraction Method</p><p id="spec-method" class="text-2xl font-extrabold">-</p></div>
+                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Standard Grade</p><p id="spec-grade" class="text-2xl font-extrabold">Loading...</p></div>
+                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Chemical Purity</p><p id="spec-purity" class="text-2xl font-extrabold">Loading...</p></div>
+                    <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Extraction Method</p><p id="spec-method" class="text-2xl font-extrabold">Loading...</p></div>
                     <div class="bg-white p-8"><p class="text-[10px] font-black text-green-600 uppercase mb-2">Origin Facility</p><p class="text-2xl font-extrabold">Sambhal, India</p></div>
                 </div>
             </section>
@@ -76,7 +78,7 @@
                 <div class="bg-slate-900 text-white rounded-[2rem] p-10 shadow-2xl">
                     <h3 class="text-2xl font-black mb-4">Inquire Now</h3>
                     <p class="text-slate-400 text-sm mb-8 leading-relaxed">Request factory pricing, COA, and shipping timelines for <strong><span class="country-display"></span></strong> delivery.</p>
-                    <a href="mailto:sales@nsmint.com" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-5 rounded-2xl transition shadow-lg">Send Official RFP</a>
+                    <a href="mailto:sales@nsmint.com" id="email-link" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-5 rounded-2xl transition shadow-lg">Send Official RFP</a>
                     <p class="text-center text-[10px] text-slate-500 font-bold mt-6 uppercase tracking-widest tracking-widest">Global Capacity: 1,200 MT / Year</p>
                 </div>
             </div>
@@ -85,14 +87,15 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const country = params.get('country') || 'Global';
-        const product = params.get('product') || 'Natural Mint Products';
+        const country = params.get('country') || 'Libya';
+        const product = params.get('product') || 'L-Menthol Crystals IP';
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pubhtml';
 
         async function init() {
             document.getElementById('meta-title').innerText = `${product} Supplier in ${country} | N S Mint`;
-            document.getElementById('main-heading').innerText = `${product} Distribution: ${country}`;
+            document.getElementById('main-heading').innerText = `${product} Supply to ${country}`;
             document.querySelectorAll('.country-display').forEach(el => el.innerText = country);
+            document.getElementById('email-link').href = `mailto:sales@nsmint.com?subject=Inquiry: ${product} for ${country}`;
 
             try {
                 const res = await fetch(sheetUrl);
@@ -103,31 +106,43 @@
 
                 rows.forEach(row => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    const cat = cols[0]?.replace(/"/g, '').trim();
-                    const prod = cols[1]?.replace(/"/g, '').trim();
+                    if (cols.length < 6) return;
 
-                    if (!categorizedData[cat]) categorizedData[cat] = [];
-                    categorizedData[cat].push(prod);
+                    const cat = cols[0].replace(/"/g, '').trim();
+                    const prod = cols[1].replace(/"/g, '').trim();
+                    const rowCountry = cols[2].replace(/"/g, '').trim();
 
-                    // Set Specs if matched
-                    if (prod.toLowerCase() === product.toLowerCase()) {
-                        document.getElementById('spec-purity').innerText = cols[3]?.replace(/"/g, '');
-                        document.getElementById('spec-grade').innerText = cols[4]?.replace(/"/g, '');
-                        document.getElementById('spec-method').innerText = cols[5]?.replace(/"/g, '');
+                    // Map all products to categories for the current country
+                    if (rowCountry === country) {
+                        if (!categorizedData[cat]) categorizedData[cat] = [];
+                        if (!categorizedData[cat].includes(prod)) {
+                            categorizedData[cat].push(prod);
+                        }
+                    }
+
+                    // MATCH PRODUCT DATA (Column 1 is Product, 3 is Purity, 4 is Grade, 5 is Method)
+                    if (prod.toLowerCase() === product.toLowerCase() && rowCountry === country) {
+                        document.getElementById('spec-purity').innerText = cols[3].replace(/"/g, '');
+                        document.getElementById('spec-grade').innerText = cols[4].replace(/"/g, '');
+                        document.getElementById('spec-method').innerText = cols[5].replace(/"/g, '');
                     }
                 });
 
-                // Generate SILO Mega-Menu
+                // BUILD DYNAMIC SILO DROPDOWNS
                 const nav = document.getElementById('category-nav');
+                nav.innerHTML = ''; // Clear loading state
+                
                 Object.keys(categorizedData).forEach(cat => {
                     const dropdown = document.createElement('div');
-                    dropdown.className = "dropdown relative group inline-block";
+                    dropdown.className = "dropdown relative group";
                     dropdown.innerHTML = `
-                        <button class="text-[11px] font-black uppercase tracking-widest text-slate-400 group-hover:text-green-400 py-3">${cat} ▾</button>
-                        <div class="dropdown-menu absolute hidden bg-white text-slate-900 shadow-2xl rounded-xl p-4 min-w-[250px] border border-slate-100">
-                            ${categorizedData[cat].slice(0, 10).map(p => `
+                        <button class="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-green-400 py-4 px-2 flex items-center">
+                            ${cat} <span class="ml-1 text-[8px]">▼</span>
+                        </button>
+                        <div class="dropdown-menu absolute hidden left-0 bg-white text-slate-900 shadow-2xl rounded-xl p-2 min-w-[280px] border border-slate-100 top-full">
+                            ${categorizedData[cat].map(p => `
                                 <a href="page.html?product=${encodeURIComponent(p)}&country=${encodeURIComponent(country)}" 
-                                   class="block text-xs font-bold py-2 px-3 hover:bg-green-50 rounded-lg transition">
+                                   class="block text-[11px] font-bold py-2 px-4 hover:bg-green-50 hover:text-green-700 rounded-lg transition whitespace-normal">
                                    ${p}
                                 </a>
                             `).join('')}
@@ -136,11 +151,13 @@
                     nav.appendChild(dropdown);
                 });
 
-                // Content Logic
-                document.getElementById('p1').innerText = `As a recognized 3-Star Export House, N S Mint Products provides direct factory supply of ${product} to industries across ${country}. Our facility in Sambhal integrates traditional farmer-sourcing with high-end fractional distillation, ensuring that every batch meets the rigorous pharmaceutical and food safety standards required in ${country}.`;
-                document.getElementById('p2').innerText = `Shipping and logistics for ${product} to ${country} are streamlined through our dedicated export division. We manage all regulatory compliance, including REACH registration and WHO-GMP documentation, to ensure zero delay at customs. Our annual capacity of 1,200 MT allows us to handle both bulk industrial orders and specialized laboratory requirements for ${country} distributors.`;
+                // CONTENT STRINGS
+                document.getElementById('p1').innerText = `N S Mint Products, a recognized 3-Star Export House, serves as a primary manufacturer and supplier of ${product} to industries in ${country}. Sourced from the highest quality Mentha Arvensis crops in India, our ${product} undergoes triple-distillation and precise crystallization to meet the specific pharmacopeia standards required by ${country} manufacturers.`;
+                document.getElementById('p2').innerText = `We facilitate seamless logistics to ${country} for all orders of ${product}. Our quality assurance team ensures every batch is accompanied by comprehensive COA, MSDS, and REACH compliance documentation. Whether for pharmaceutical applications or large-scale food production in ${country}, N S Mint ensures stability in supply chain and purity.`;
 
-            } catch (e) { console.error(e); }
+            } catch (e) { 
+                console.error('Error loading data:', e);
+            }
         }
         init();
     </script>
