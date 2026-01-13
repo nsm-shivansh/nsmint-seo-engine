@@ -7,41 +7,52 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans">
-    <nav class="bg-white shadow-sm p-4">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold text-green-700">N S Mint Products - Global</h1>
-            <a href="https://www.nsmint.com/contact.html" class="bg-green-600 text-white px-4 py-2 rounded">Contact Us</a>
-        </div>
+    <nav class="bg-white shadow-sm p-4 text-center">
+        <h1 class="text-xl font-bold text-green-700">N S Mint Products - Global Resource Center</h1>
     </nav>
 
-    <div class="max-w-4xl mx-auto py-12 px-4">
-        <h2 class="text-3xl font-bold mb-8 text-center">Exporting to 195+ Countries</h2>
-        <div id="country-list" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            </div>
+    <div class="max-w-6xl mx-auto py-12 px-4">
+        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Direct Export Destinations</h2>
+        <div id="country-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <p class="col-span-full text-center text-gray-500">Connecting to global database...</p>
+        </div>
     </div>
 
     <script>
-        // PASTE YOUR GOOGLE SHEETS CSV URL BELOW
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv;'
+        // THE FIX: The quotes '' are mandatory here.
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv';
 
         async function loadPages() {
-            const response = await fetch(sheetUrl);
-            const data = await response.text();
-            const rows = data.split('\n').slice(1);
-            const container = document.getElementById('country-list');
+            try {
+                const response = await fetch(sheetUrl);
+                const data = await response.text();
+                
+                // This splits the CSV data correctly
+                const rows = data.split(/\r?\n/).slice(1); 
+                const container = document.getElementById('country-list');
+                container.innerHTML = ''; // Clear loading message
 
-            rows.forEach(row => {
-                const columns = row.split(',');
-                if (columns.length > 1) {
-                    const country = columns[1].trim();
-                    const product = columns[0].trim();
-                    const link = document.createElement('a');
-                    link.href = `page.html?country=${encodeURIComponent(country)}&product=${encodeURIComponent(product)}`;
-                    link.className = "p-3 bg-white border rounded shadow-sm hover:bg-green-50 text-blue-600";
-                    link.innerText = `${product} in ${country}`;
-                    container.appendChild(link);
-                }
-            });
+                rows.forEach(row => {
+                    // Use a more robust split for CSV (handles quotes if any)
+                    const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    
+                    if (columns.length >= 2) {
+                        const product = columns[0].replace(/"/g, '').trim();
+                        const country = columns[1].replace(/"/g, '').trim();
+                        
+                        if (country && product) {
+                            const link = document.createElement('a');
+                            link.href = `page.html?country=${encodeURIComponent(country)}&product=${encodeURIComponent(product)}`;
+                            link.className = "p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-green-500 transition-all text-blue-600 font-medium";
+                            link.innerText = `${product} - ${country}`;
+                            container.appendChild(link);
+                        }
+                    }
+                });
+            } catch (error) {
+                document.getElementById('country-list').innerHTML = `<p class="col-span-full text-center text-red-500">Error loading data. Please check your internet connection.</p>`;
+                console.error('Sheet loading error:', error);
+            }
         }
         loadPages();
     </script>
