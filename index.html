@@ -3,68 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N S Mint Products | Global Export Directory</title>
+    <title>Global Resource Center | N S Mint Products</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 font-sans">
-    <nav class="bg-white shadow-sm p-6 border-b-4 border-green-600">
+<body class="bg-white text-slate-900">
+
+    <nav class="bg-white py-6 px-8 border-b border-slate-100 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-black text-green-800 tracking-tighter uppercase">N S Mint <span class="text-slate-400">Global</span></h1>
-            <a href="https://www.nsmint.com/contact.html" class="bg-green-700 text-white px-6 py-2 rounded-full font-bold hover:bg-green-800 transition">Inquire Now</a>
+            <img src="https://www.nsmint.com/images/logo.png" alt="N S Mint Logo" class="h-12 md:h-16">
+            <div class="text-right">
+                <span class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">3-Star Export House</span>
+                <span class="text-green-700 font-bold text-sm">International Division</span>
+            </div>
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto py-16 px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-extrabold text-slate-900 mb-4">International Resource Center</h2>
-            <p class="text-slate-500 text-lg">Direct factory supply to 195 countries. Select a destination to view technical specifications and shipping schedules.</p>
+    <header class="bg-slate-900 text-white py-24 px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-black mb-8 tracking-tighter">International <span class="text-green-500">Resource</span> Center</h1>
+            <p class="text-xl md:text-2xl text-slate-400 leading-relaxed font-light">
+                Direct factory access to technical documentation, purity standards, and global logistics for our 195+ export destinations.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-20 px-8">
+        
+        <div class="mb-16 max-w-2xl mx-auto">
+            <label class="block text-center text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Filter by Product or Country</label>
+            <input type="text" id="searchInput" onkeyup="filterDirectory()" placeholder="e.g. 'Menthol Germany' or 'Peppermint'" 
+                class="w-full p-6 rounded-2xl border-2 border-slate-100 focus:border-green-500 focus:ring-4 focus:ring-green-50/50 outline-none text-xl font-medium shadow-xl transition-all">
         </div>
 
-        <div class="mb-8 max-w-md mx-auto">
-            <input type="text" id="searchInput" onkeyup="filterLinks()" placeholder="Search by Country or Product..." class="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-green-500 outline-none shadow-sm">
+        <div id="directory-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="col-span-full py-20 text-center">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-green-500 border-t-transparent mb-4"></div>
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">Synchronizing Global Database...</p>
+            </div>
         </div>
+    </main>
 
-        <div id="directory-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <p class="col-span-full text-center text-slate-400 animate-pulse">Synchronizing with global database...</p>
+    <footer class="bg-slate-50 py-20 px-8 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-widest">© 2026 N S Mint Products Pvt Ltd</p>
         </div>
-    </div>
+    </footer>
 
     <script>
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pubhtml';
+        // CRITICAL: Make sure the link inside quotes ends in output=csv
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv';
 
         async function loadDirectory() {
             try {
                 const response = await fetch(sheetUrl);
                 const data = await response.text();
-                const rows = data.split(/\r?\n/).slice(1);
+                const rows = data.split(/\r?\n/).slice(1); // Skip header
                 const container = document.getElementById('directory-grid');
                 container.innerHTML = '';
 
                 rows.forEach(row => {
+                    // This regex handles commas inside quotes (if any)
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    
                     if (cols.length >= 2) {
                         const product = cols[0].replace(/"/g, '').trim();
                         const country = cols[1].replace(/"/g, '').trim();
                         
-                        const link = document.createElement('a');
-                        link.href = `page.html?country=${encodeURIComponent(country)}&product=${encodeURIComponent(product)}`;
-                        link.className = "directory-item p-4 bg-white border border-slate-200 rounded-xl hover:border-green-500 hover:shadow-md transition-all text-sm font-semibold text-slate-700 flex justify-between items-center group";
-                        link.innerHTML = `<span>${product} <span class="text-slate-400 block text-[10px] uppercase tracking-widest">${country}</span></span> <span class="text-green-500 opacity-0 group-hover:opacity-100 transition">→</span>`;
-                        container.appendChild(link);
+                        const card = document.createElement('a');
+                        card.href = `page.html?country=${encodeURIComponent(country)}&product=${encodeURIComponent(product)}`;
+                        card.className = "directory-card group bg-white border border-slate-100 p-8 rounded-3xl shadow-sm hover:shadow-2xl hover:border-green-500 transition-all duration-300";
+                        
+                        card.innerHTML = `
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-[10px] font-black text-green-600 uppercase tracking-widest bg-green-50 px-2 py-1 rounded">Export Dest.</span>
+                                <span class="text-slate-200 group-hover:text-green-500 transition">→</span>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-slate-900 group-hover:text-green-700 transition mb-1">${product}</h3>
+                            <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">${country}</p>
+                        `;
+                        container.appendChild(card);
                     }
                 });
-            } catch (e) {
-                document.getElementById('directory-grid').innerHTML = "Error loading directory. Please check Google Sheet publishing settings.";
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('directory-grid').innerHTML = `
+                    <div class="col-span-full text-center bg-red-50 p-10 rounded-3xl border-2 border-red-100">
+                        <p class="text-red-600 font-bold">Database Connection Failed</p>
+                        <p class="text-red-400 text-sm">Please verify the Google Sheet is "Published to Web" as a CSV.</p>
+                    </div>`;
             }
         }
 
-        function filterLinks() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let items = document.getElementsByClassName('directory-item');
-            for (let i = 0; i < items.length; i++) {
-                items[i].style.display = items[i].innerText.toLowerCase().includes(input) ? "" : "none";
+        function filterDirectory() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.getElementsByClassName('directory-card');
+            
+            for (let card of cards) {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? "block" : "none";
             }
         }
+
         loadDirectory();
     </script>
 </body>
