@@ -6,124 +6,569 @@
     <title id="meta-title">N S Mint Products | Technical Data</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        
-        /* FIX: Ensure dropdown isn't hidden by overflow */
-        .nav-container { position: relative; z-index: 100; }
-        .dropdown-menu { 
-            display: none; 
-            position: absolute; 
-            top: 100%; 
-            left: 0; 
-            z-index: 999; 
-            background: white;
-            min-width: 280px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border-radius: 0.75rem;
-            border: 1px solid #e2e8f0;
+    /* 1. Base Typography & Smoothness */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    body { 
+        background-color: white;
+        font-family: 'Inter', sans-serif; 
+        letter-spacing: -0.01em;
+        overflow-x: hidden; /* Prevent horizontal "jitter" on mobile */
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    /* 2. Hero Background & Sizing */
+    .hero-gradient { 
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #064e3b 100%);
+    }
+    
+    #main-heading {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    /* 3. Navigation & Dropdown Logic */
+    nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgb(239, 255, 243);
+    }
+    
+    /* Category Bar Fix */
+    .nav-category-bar {
+        position: relative;
+        z-index: 999;
+    }
+    
+    #category-nav {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        overflow-y: visible !important;
+        scrollbar-width: none; /* Firefox */
+    }
+    
+    #category-nav::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    
+    /* Dropdown Menu - Desktop State */
+    .dropdown-container {
+        position: relative;
+    }
+    
+    .dropdown-menu { 
+        color: #1e293b !important;
+        display: none; 
+        position: absolute; 
+        top: 100%;
+        left: 0; 
+        z-index: 10000;
+        background: white;
+        min-width: 280px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        padding: 8px;
+    }
+    
+    /* Hover logic for Desktop */
+    @media (min-width: 769px) {
+        .dropdown-container:hover .dropdown-menu {
+            display: block;
         }
-        .dropdown:hover .dropdown-menu { display: block; }
-        .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #14532d 100%); }
-        
-        /* Hide scrollbar but keep functionality for the nav bar */
-        #category-nav::-webkit-scrollbar { display: none; }
-        #category-nav { -ms-overflow-style: none; scrollbar-width: none; }
+    }
+    
+    /* 4. MOBILE-SPECIFIC OVERRIDES (Critical) */
+    @media (max-width: 768px) {
+        /* Shrink Hero Headline */
+        #main-heading {
+            font-size: 1.75rem !important; /* 28px */
+            line-height: 1.2;
+        }
+    
+        /* Prevent Dropdown clipping by using Fixed positioning on mobile */
+        .dropdown-menu {
+            color: #1e293b !important;
+            position: fixed !important;
+            top: 130px !important; /* Positioned below nav */
+            left: 5% !important;
+            right: 5% !important;
+            width: 90% !important;
+            max-height: 50vh;
+            overflow-y: auto;
+            box-shadow: 0 0 0 1000px rgba(0,0,0,0.3); /* Dim background when menu open */
+        }
+    
+        /* Toggle visibility on click for mobile */
+        .dropdown-container.active .dropdown-menu {
+            display: block;
+        }
+    
+        /* Ensure form doesn't get squished */
+        main {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            gap: 2rem;
+        }
+    }
+    
+    /* 5. Sidebar & Form Styling */
+    .sticky-form-container {
+        position: sticky;
+        top: 160px; /* Aligned below sticky nav */
+        z-index: 10;
+    }
+    
+    /* 6. Photo Gallery Carousel */
+    .gallery-container {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .gallery-slide {
+        display: none;
+        animation: fadeIn 0.5s;
+    }
+    
+    .gallery-slide.active {
+        display: block;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        cursor: pointer;
+        border-radius: 50%;
+        z-index: 10;
+    }
+    
+    .gallery-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+    }
+    
+    .gallery-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #cbd5e1;
+        border: none;
+    }
+    
+    .gallery-dot.active {
+        background: #10b981;
+    }
     </style>
 </head>
-<body class="bg-white text-slate-900 antialiased">
+<body class="text-slate-900 antialiased">
 
-    <nav class="bg-white border-b border-slate-100 sticky top-0 z-50">
+    <nav class=" border-b border-slate-200 sticky top-0 z-[1000]">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <img src="https://www.nsmint.com/images/logo.png" alt="N S Mint Logo" class="h-14">
-            <div class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-500 uppercase tracking-widest">
-                <span>3-Star Export House</span>
-                <a href="https://www.nsmint.com/contact.html" class="bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition shadow-lg">Inquiry Now</a>
+            <a href="index.html" class="flex items-center">
+                <img src="https://www.nsmint.com/images/logo.png" alt="N S Mint Logo" class="h-12">
+            </a>
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                <a href="https://www.nsmint.com/" class="hover:text-green-700 transition-colors">Home</a>
+                <a href="https://www.nsmint.com/about.html" class="hover:text-green-700 transition-colors">About</a>
+                <a href="https://www.nsmint.com/photo-gallery.html" class="hover:text-green-700 transition-colors">Gallery</a>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">3-Star Export House</span>
+                <a href="https://www.nsmint.com/contact.html" class="bg-green-700 text-white px-5 py-2.5 rounded-lg hover:bg-green-800 transition-colors font-medium">Inquiry</a>
             </div>
         </div>
 
-        <div class="bg-slate-900 text-white border-t border-slate-800 w-full overflow-visible">
-            <div id="category-nav" class="max-w-7xl mx-auto px-6 flex justify-between items-center overflow-x-auto whitespace-nowrap min-h-[50px]">
-                <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest mr-4">Product Category:</span>
+        <div class="nav-category-bar bg-slate-900 text-white border-t border-slate-800">
+            <div id="category-nav" class="max-w-7xl mx-auto px-6 flex items-center gap-2 min-h-[56px] py-2">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-2 shrink-0">Categories:</span>
                 </div>
         </div>
     </nav>
 
-    <header class="hero-gradient text-white py-24 px-6">
-        <div class="max-w-6xl mx-auto">
-            <p class="text-green-300 font-black uppercase tracking-[0.3em] mb-4 text-xs">Certified Manufacturer & Exporter</p>
-            <h1 id="main-heading" class="text-4xl md:text-7xl font-extrabold mb-8 leading-tight tracking-tighter">
-                Loading Product Details...
+    <header class="relative hero-gradient text-white py-12 md:py-20 px-6 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img id="product-hero-image" 
+                 src="https://images.unsplash.com/photo-1603513492128-ba7bc9b3e143?auto=format&fit=crop&q=80" 
+                 alt="Background" 
+                 class="w-full h-full object-cover opacity-20 transition-opacity duration-700">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-950/70 to-transparent"></div>
+        </div>
+    
+        <div class="relative z-10 max-w-6xl mx-auto">
+            <p class="text-green-400 font-bold uppercase tracking-[0.2em] mb-2 text-[9px] md:text-[10px]">
+                Certified Manufacturer & Exporter
+            </p>
+            
+            <h1 id="main-heading" class="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 tracking-tight leading-tight">
+                Loading...
             </h1>
-            <p class="text-xl md:text-2xl text-green-50 max-w-3xl opacity-90 leading-relaxed font-light">
-                Premium supply from our Sambhal facility. WHO-GMP and FSSC 22000 compliant quality standards for manufacturers in <span class="country-display font-bold text-green-300"></span>.
+            
+            <p class="text-sm md:text-lg text-slate-200 max-w-2xl leading-relaxed opacity-90">
+                Premium supply from our Sambhal facility. WHO-GMP and FSSC 22000 compliant quality standards for manufacturers in <span class="country-display font-bold text-green-400"></span>.
             </p>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto py-20 px-6 grid lg:grid-cols-3 gap-16">
-        <div class="lg:col-span-2 space-y-16">
+    <main class="max-w-7xl mx-auto py-8 md:py-16 px-4 md:px-6 grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-12">
+        <div class="lg:col-span-5 space-y-12">
             
-            <section class="bg-slate-50 border border-slate-200 rounded-[2.5rem] p-10 shadow-2xl">
-                <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-10 text-center">Technical Compliance Data</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 border border-slate-200 overflow-hidden rounded-2xl">
-                    <div class="bg-white p-8">
-                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Standard Grade</p>
-                        <p id="spec-grade" class="text-2xl font-extrabold text-slate-900">...</p>
+            <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wide mb-6">Technical Specifications</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 text-center border border-slate-200">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase mb-2 tracking-wide">Grade</p>
+                        <p id="spec-grade" class="text-xl font-bold text-slate-900">...</p>
                     </div>
-                    <div class="bg-white p-8">
-                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Chemical Purity</p>
-                        <p id="spec-purity" class="text-2xl font-extrabold text-slate-900">...</p>
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 text-center border border-slate-200">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase mb-2 tracking-wide">Purity</p>
+                        <p id="spec-purity" class="text-xl font-bold text-slate-900">...</p>
                     </div>
-                    <div class="bg-white p-8">
-                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Extraction Method</p>
-                        <p id="spec-method" class="text-2xl font-extrabold text-slate-900">...</p>
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 text-center border border-slate-200">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase mb-2 tracking-wide">Method</p>
+                        <p id="spec-method" class="text-xl font-bold text-slate-900">...</p>
                     </div>
-                    <div class="bg-white p-8">
-                        <p class="text-[10px] font-black text-green-600 uppercase mb-2">Origin</p>
-                        <p class="text-2xl font-extrabold text-slate-900">Sambhal, India</p>
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 text-center border border-slate-200">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase mb-2 tracking-wide">Origin</p>
+                        <p class="text-xl font-bold text-slate-900">Sambhal, India</p>
                     </div>
                 </div>
             </section>
 
-            <article class="prose prose-slate max-w-none prose-lg">
-                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight"><span id="article-prod"></span> Supply to <span class="country-display"></span></h2>
-                <p id="p1" class="text-xl text-slate-600 leading-relaxed"></p>
-                <div class="bg-green-50 rounded-3xl p-10 border border-green-100 my-12">
-                    <h3 class="text-2xl font-extrabold text-green-900 mb-6 text-center italic">"Quality that meets global pharmacopeia standards."</h3>
-                    <ul class="grid md:grid-cols-2 gap-6 text-slate-700 font-semibold list-none p-0">
-                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>Pharmaceutical & API Grade</li>
-                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>FMCG & Oral Care</li>
-                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>Flavors & Fragrances</li>
-                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-3 shrink-0"></span>Industrial Distillation</li>
-                    </ul>
+            <article class="prose prose-slate max-w-none">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4"><span id="article-prod"></span> Supply to <span class="country-display"></span></h2>
+                <p id="p1" class="text-lg text-slate-600 leading-relaxed mb-6"></p>
+                
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100 my-8">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 text-center">Quality Standards</h3>
+                    <div class="grid md:grid-cols-2 gap-4 relative z-10">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-600 rounded-full"></div>
+                            <span class="text-slate-700 font-medium">Pharmaceutical & API Grade</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-600 rounded-full"></div>
+                            <span class="text-slate-700 font-medium">FMCG & Oral Care</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-600 rounded-full"></div>
+                            <span class="text-slate-700 font-medium">Flavors & Fragrances</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-600 rounded-full"></div>
+                            <span class="text-slate-700 font-medium">Industrial Applications</span>
+                        </div>
+                    </div>
                 </div>
-                <p id="p2" class="text-xl text-slate-600 leading-relaxed"></p>
+                
+                <p id="p2" class="text-lg text-slate-600 leading-relaxed"></p>
             </article>
+
+            <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wide mb-6">Manufacturing Facility Gallery</h2>
+                <div class="gallery-container relative rounded-xl overflow-hidden bg-slate-100" style="height: 400px;">
+                    <div class="gallery-slide active">
+                        <img src="https://www.nsmint.com/images/gallery10.jpg" alt="Factory" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/gallery16.jpg" alt="Production" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/gallery20.jpg" alt="Facility" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/img1new.jpg" alt="Quality" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/img3new.jpg" alt="Manufacturing" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/gallery31.jpg" alt="Plant" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/gallery32.jpg" alt="Operations" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/gallery12.jpg" alt="Equipment" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/gallery10.jpg" alt="Warehouse" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://www.nsmint.com/images/gallery15.jpg" alt="Facility" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    </div>
+                    <button class="gallery-nav prev" onclick="changeSlide(-1)">‹</button>
+                    <button class="gallery-nav next" onclick="changeSlide(1)">›</button>
+                </div>
+                <div class="gallery-dots" id="gallery-dots"></div>
+            </section>
+
+            <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wide mb-6">Certifications & Compliance</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-4 text-center border border-slate-200">
+                        <div class="h-12 flex items-center justify-center mb-2">
+                            <span class="text-2xl">⭐</span>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">3-Star Export House</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-4 text-center border border-slate-200">
+                        <div class="h-12 flex items-center justify-center mb-2">
+                            <span class="text-2xl">✓</span>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">ISO Certified</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-4 text-center border border-slate-200">
+                        <div class="h-12 flex items-center justify-center mb-2">
+                            <span class="text-2xl">🏭</span>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">WHO-GMP</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-4 text-center border border-slate-200">
+                        <div class="h-12 flex items-center justify-center mb-2">
+                            <span class="text-2xl">🔒</span>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">FSSC 22000</p>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed text-center">
+                    N S Mint Products is a government-approved 3-Star Export House with ISO 22000:2005, ISO 9001:2008, HACCP, GMP certification, Kosher certification, and REACH Ready status.
+                </p>
+            </section>
+
+            <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wide mb-6">Applications</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-base font-semibold text-slate-900 mb-3">Pharmaceutical</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li>• API manufacturing</li>
+                            <li>• Topical preparations</li>
+                            <li>• Respiratory products</li>
+                            <li>• Oral care</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold text-slate-900 mb-3">FMCG</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li>• Confectionery</li>
+                            <li>• Personal care</li>
+                            <li>• Cosmetics</li>
+                            <li>• Food products</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold text-slate-900 mb-3">Flavors & Fragrances</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li>• Natural flavoring</li>
+                            <li>• Aromatherapy</li>
+                            <li>• Perfumery</li>
+                            <li>• Essential oil blends</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold text-slate-900 mb-3">Industrial</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li>• Distillation processes</li>
+                            <li>• Chemical synthesis</li>
+                            <li>• Agrochemicals</li>
+                            <li>• Specialty chemicals</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="sticky top-[160px] space-y-6">
+                    <div class="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-green-700"></div>
+                        
+                        <h3 class="text-xl font-extrabold text-slate-900 mb-1">Want to purchase? Please let us know.</h3>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-6">Export Enquiry Form</p>
+            
+                        <form action="https://formspree.io/f/YOUR_ID" method="POST" class="space-y-3">
+                            
+                            <input type="text" name="Name" required placeholder="Your Name" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-green-600 transition">
+                            <input type="text" name="Company" required placeholder="Company Name" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-green-600 transition">
+                            
+                            <input type="email" name="Email" required placeholder="Business Email" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-green-600 transition">
+                            
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Product Requirement</label>
+                                <input type="text" name="Product" id="form-product-field" readonly class="w-full bg-slate-100 border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-500 cursor-not-allowed">
+                            </div>
+            
+                            <input type="text" name="Quantity" placeholder="Order Quantity (e.g., 500 KG)" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-green-600 transition">
+                            
+                            <textarea name="Comments" rows="3" placeholder="Specific requirements or port of delivery..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-green-600 transition resize-none"></textarea>
+            
+                            <button type="submit" class="w-full bg-slate-900 hover:bg-green-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95 mt-2">
+                                Submit Inquiry
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="related-products" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wide mb-6">Related Products in <span class="country-display"></span></h2>
+                <div id="related-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <p class="col-span-full text-center text-slate-400 text-sm py-8">Loading related products...</p>
+                </div>
+            </section>
+
+            <section class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-8">
+                <h2 class="text-sm font-bold text-green-300 uppercase tracking-wide mb-6">Export Capabilities</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <div class="text-3xl mb-3">🌍</div>
+                        <h3 class="font-semibold mb-2">195+ Destinations</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">Worldwide export coverage across major global markets.</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl mb-3">📦</div>
+                        <h3 class="font-semibold mb-2">Full Documentation</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">REACH, WHO-GMP, and country-specific regulatory compliance.</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl mb-3">⚡</div>
+                        <h3 class="font-semibold mb-2">Direct Pricing</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">Factory-direct pricing with transparent logistics.</p>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        <aside class="lg:col-span-1">
-            <div class="sticky top-32 bg-slate-900 text-white rounded-[2rem] p-10 shadow-2xl">
-                <h3 class="text-2xl font-black mb-4">Export Desk</h3>
-                <p class="text-slate-400 text-sm mb-8 leading-relaxed italic text-balance">Direct factory pricing for <span class="country-display text-green-400"></span> importers.</p>
-                <a href="mailto:sales@nsmint.com" id="email-link" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-5 rounded-2xl transition shadow-lg uppercase text-xs tracking-widest">Send Inquiry</a>
-            </div>
-        </aside>
+        
     </main>
+
+    <footer class="bg-slate-900 text-white py-12 px-6 border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-sm font-bold mb-4 uppercase tracking-wide text-green-400">Company</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="https://www.nsmint.com/about.html" class="hover:text-green-400 transition-colors">About Us</a></li>
+                        <li><a href="https://www.nsmint.com/technology.html" class="hover:text-green-400 transition-colors">Technology</a></li>
+                        <li><a href="https://www.nsmint.com/photo-gallery.html" class="hover:text-green-400 transition-colors">Gallery</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold mb-4 uppercase tracking-wide text-green-400">Products</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="https://www.nsmint.com/" class="hover:text-green-400 transition-colors">All Products</a></li>
+                        <li><a href="https://www.nsmint.com/" class="hover:text-green-400 transition-colors">Mint Derivatives</a></li>
+                        <li><a href="https://www.nsmint.com/" class="hover:text-green-400 transition-colors">Essential Oils</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold mb-4 uppercase tracking-wide text-green-400">Resources</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="index.html" class="hover:text-green-400 transition-colors">Resource Center</a></li>
+                        <li><a href="https://www.nsmint.com/technology.html" class="hover:text-green-400 transition-colors">Infrastructure</a></li>
+                        <li><a href="https://www.nsmint.com/sustainability.html" class="hover:text-green-400 transition-colors">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold mb-4 uppercase tracking-wide text-green-400">Contact</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="https://www.nsmint.com/contact.html" class="hover:text-green-400 transition-colors">Contact Us</a></li>
+                        <li><a href="mailto:sales@nsmint.com" class="hover:text-green-400 transition-colors">sales@nsmint.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-6 text-center">
+                <p class="text-sm text-slate-400 font-medium">© 2026 N S Mint Products Pvt Ltd</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const countryName = urlParams.get('country') || 'Libya';
         const productName = urlParams.get('product') || 'L-Menthol Crystals IP';
         
-        // RE-CHECK: Ensure this URL ends in output=csv
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTin-HV31mE-Bj1ksOeaiFwvBKQbc7MLpk1XiYm69v63yhualNST3yEDCZ-CWtoN0-9IZlzqu7zoR1e/pub?output=csv';
+
+        // Function to get product image based on category
+        function getProductImageByCategory(category) {
+            const categoryLower = category?.toLowerCase() || '';
+            
+            if (categoryLower.includes('menthol solid')) {
+                return 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&q=80';
+            } else if (categoryLower.includes('natural essential oil')) {
+                return 'https://images.unsplash.com/photo-1615485925503-6e4e73e626b3?w=1200&q=80';
+            } else if (categoryLower.includes('mint derivative')) {
+                return 'https://images.unsplash.com/photo-1615485925503-6e4e73e626b3?w=1200&q=80';
+            } else if (categoryLower.includes('fraction') || categoryLower.includes('isolate')) {
+                return 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80';
+            } else if (categoryLower.includes('leaf extract')) {
+                return 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1200&q=80';
+            }
+            return 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80';
+        }
+
+        // Gallery carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.gallery-slide');
+        const totalSlides = slides.length;
+
+        function initGallery() {
+            const dotsContainer = document.getElementById('gallery-dots');
+            dotsContainer.innerHTML = '';
+            
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = `gallery-dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => showSlide(index);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            
+            const dots = document.querySelectorAll('.gallery-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            
+            currentSlide = index;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            showSlide(currentSlide);
+        }
+
+        // Auto-advance gallery
+        function autoAdvanceGallery() {
+            setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
 
         async function init() {
             document.getElementById('meta-title').innerText = `${productName} in ${countryName} | N S Mint Products`;
             document.getElementById('main-heading').innerText = `${productName} Supply to ${countryName}`;
             document.getElementById('article-prod').innerText = productName;
             document.querySelectorAll('.country-display').forEach(el => el.innerText = countryName);
+            
 
             try {
                 const res = await fetch(sheetUrl);
@@ -131,7 +576,6 @@
                 const rows = csvData.split(/\r?\n/).map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
                 
                 const header = rows[0];
-                // Automatically find column indices
                 const idxCat = header.findIndex(h => h.toLowerCase().includes('category'));
                 const idxProd = header.findIndex(h => h.toLowerCase().includes('product'));
                 const idxCtry = header.findIndex(h => h.toLowerCase().includes('country'));
@@ -140,6 +584,8 @@
                 const idxMethod = header.findIndex(h => h.toLowerCase().includes('method'));
 
                 const navSilos = {};
+                let productCategory = '';
+                const relatedProducts = [];
 
                 for (let i = 1; i < rows.length; i++) {
                     const cols = rows[i];
@@ -149,13 +595,16 @@
                     const rowProd = cols[idxProd]?.replace(/"/g, '').trim();
                     const rowCtry = cols[idxCtry]?.replace(/"/g, '').trim();
 
-                    // 1. Build Nav Silo (Products available in this country)
                     if (rowCtry === countryName) {
                         if (!navSilos[rowCat]) navSilos[rowCat] = [];
                         if (!navSilos[rowCat].includes(rowProd)) navSilos[rowCat].push(rowProd);
 
-                        // 2. Exact Match for Page Content
+                        if (rowProd.toLowerCase() !== productName.toLowerCase()) {
+                            relatedProducts.push({ product: rowProd, category: rowCat });
+                        }
+
                         if (rowProd.toLowerCase() === productName.toLowerCase()) {
+                            productCategory = rowCat;
                             document.getElementById('spec-purity').innerText = cols[idxPurity]?.replace(/"/g, '') || 'High Purity';
                             document.getElementById('spec-grade').innerText = cols[idxGrade]?.replace(/"/g, '') || 'Standard';
                             document.getElementById('spec-method').innerText = cols[idxMethod]?.replace(/"/g, '') || 'Distilled';
@@ -163,35 +612,130 @@
                     }
                 }
 
-                // 3. Render Mega Menus
+                // Set product image
+                const productImage = document.getElementById('product-main-image');
+                const productPlaceholder = document.getElementById('product-image-placeholder');
+                if (productImage && productCategory) {
+                    const imageUrl = getProductImageByCategory(productCategory);
+                    productImage.src = imageUrl;
+                    productImage.onload = () => {
+                        if (productPlaceholder) productPlaceholder.style.display = 'none';
+                    };
+                    productImage.onerror = () => {
+                        if (productPlaceholder) productPlaceholder.style.display = 'flex';
+                    };
+                }
+
+                // Render dropdown menus with click functionality
                 const nav = document.getElementById('category-nav');
-                nav.innerHTML = ''; 
+                nav.innerHTML = '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-2 shrink-0">Categories:</span>';
+                
+                let activeDropdown = null;
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (activeDropdown && !activeDropdown.contains(e.target)) {
+                        const menu = activeDropdown.querySelector('.dropdown-menu');
+                        const button = activeDropdown.querySelector('.dropdown-button');
+                        if (menu) menu.classList.remove('active');
+                        if (button) button.classList.remove('active');
+                        activeDropdown = null;
+                    }
+                });
+                
                 Object.keys(navSilos).forEach(cat => {
+                    const container = document.createElement('div');
+                    container.className = "dropdown-container shrink-0";
+                    
+                    const button = document.createElement('button');
+                    button.className = "dropdown-button text-[11px] font-semibold uppercase tracking-wide text-slate-300 hover:text-green-400 py-3 px-4 flex items-center transition-colors rounded-lg hover:bg-slate-800";
+                    button.innerHTML = `${cat} <span class="ml-1.5 text-[8px]">▼</span>`;
+                    
                     const menu = document.createElement('div');
-                    menu.className = "dropdown relative group";
-                    menu.innerHTML = `
-                        <button class="text-[10px] font-extrabold uppercase tracking-tight text-slate-300 group-hover:text-green-400 py-4 px-3 flex items-center">
-                            ${cat} <span class="ml-1 opacity-50">▼</span>
-                        </button>
-                        <div class="dropdown-menu absolute hidden left-0 bg-white text-slate-900 shadow-2xl rounded-xl p-2 min-w-[280px] border border-slate-100 top-full z-[100]">
-                            ${navSilos[cat].map(p => `
+                    menu.className = "dropdown-menu";
+                    menu.innerHTML = navSilos[cat].map(p => `
                                 <a href="page.html?product=${encodeURIComponent(p)}&country=${encodeURIComponent(countryName)}" 
-                                   class="block text-[11px] font-bold py-2 px-4 hover:bg-green-50 hover:text-green-800 rounded-lg transition">
+                           class="block text-xs font-medium py-2.5 px-4 hover:bg-green-50 hover:text-green-700 rounded-lg transition-colors">
                                    ${p}
                                 </a>
-                            `).join('')}
-                        </div>`;
-                    nav.appendChild(menu);
+                    `).join('');
+                    
+                    // Click handler for dropdown
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const rect = button.getBoundingClientRect();
+                        
+                        // Close other dropdowns
+                        if (activeDropdown && activeDropdown !== container) {
+                            const otherMenu = activeDropdown.querySelector('.dropdown-menu');
+                            const otherButton = activeDropdown.querySelector('.dropdown-button');
+                            if (otherMenu) otherMenu.classList.remove('active');
+                            if (otherButton) otherButton.classList.remove('active');
+                        }
+                        
+                        // Toggle current dropdown
+                        if (menu.classList.contains('active')) {
+                            menu.classList.remove('active');
+                            button.classList.remove('active');
+                            activeDropdown = null;
+                        } else {
+                            menu.style.position = 'fixed';
+                            menu.style.top = (rect.bottom + 4) + 'px';
+                            menu.style.left = rect.left + 'px';
+                            menu.style.zIndex = '10000';
+                            menu.classList.add('active');
+                            button.classList.add('active');
+                            activeDropdown = container;
+                        }
+                    });
+                    
+                    container.appendChild(button);
+                    container.appendChild(menu);
+                    nav.appendChild(container);
                 });
+
+                // Render related products
+                const relatedGrid = document.getElementById('related-products-grid');
+                if (relatedProducts.length > 0) {
+                    relatedGrid.innerHTML = '';
+                    relatedProducts.slice(0, 6).forEach(item => {
+                        const card = document.createElement('a');
+                        card.href = `page.html?product=${encodeURIComponent(item.product)}&country=${encodeURIComponent(countryName)}`;
+                        card.className = "bg-slate-50 rounded-lg p-4 hover:shadow-md transition border border-slate-200 hover:border-green-500";
+                        card.innerHTML = `
+                            <p class="text-sm font-semibold text-slate-900 mb-1">${item.product}</p>
+                            <p class="text-[10px] text-slate-500 uppercase tracking-wide">${item.category}</p>
+                        `;
+                        relatedGrid.appendChild(card);
+                    });
+                } else {
+                    relatedGrid.innerHTML = '<p class="col-span-full text-center text-slate-400 text-sm py-8">No related products found.</p>';
+                }
 
                 document.getElementById('p1').innerText = `As a recognized 3-Star Export House, N S Mint Products provides direct industrial-scale supply of ${productName} to manufacturers throughout ${countryName}. Our Sambhal-based production facility ensures that every shipment meets the specific purity requirements and regulatory compliance standards of the ${countryName} market.`;
                 document.getElementById('p2').innerText = `We manage the entire export lifecycle for ${productName} to ${countryName}, including full REACH documentation and WHO-GMP quality certification. Our commitment to farm-to-factory transparency allows ${countryName} procurement managers to secure high-quality ${productName} with guaranteed chemical stability and reliability.`;
 
+                // Initialize gallery
+                initGallery();
+                autoAdvanceGallery();
+
             } catch (err) {
-                console.error("Critical Error:", err);
+                console.error("Error:", err);
             }
         }
         init();
+        (function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentProduct = urlParams.get('product') || 'L-Menthol Crystals IP';
+        
+        // Wait a tiny bit for the page to load, then fill the field
+        window.addEventListener('DOMContentLoaded', () => {
+            const productField = document.getElementById('form-product-field');
+            if (productField) {
+                productField.value = currentProduct;
+            }
+        });
+     })();
     </script>
 </body>
 </html>
